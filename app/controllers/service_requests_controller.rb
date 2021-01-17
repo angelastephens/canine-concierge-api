@@ -5,7 +5,10 @@ class ServiceRequestsController < ApplicationController
   def index
     @service_requests = ServiceRequest.all
 
-    render json: @service_requests
+
+    render json: ServiceRequestSerializer.new(@service_requests).serializable_hash[:data].map{|request| request[:attributes]}
+    #render json: @service_requests (original)
+    
   end
 
   # GET /service_requests/1
